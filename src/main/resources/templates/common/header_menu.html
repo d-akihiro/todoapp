@@ -1,0 +1,18 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<body>
+    <nav class="navbar navbar-inverse" layout:fragment="header_menu">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#" th:href="@{/}">Todo List</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li sec:authorize="isAuthenticated()"><a href="#" th:href="@{/project}">Projects</a></li>
+            <li sec:authorize="isAuthenticated()"><a href="#" th:href="@{/user}">Users</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Log out</a></li>
+        </ul>
+    </nav>
+</body>
+
+</html>

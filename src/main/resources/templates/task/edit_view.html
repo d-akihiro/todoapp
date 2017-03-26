@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="common/layout">
+
+<head>
+    <title>Edit Task</title>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" rel="stylesheet"/>
+    <link href="../../static/css/custom.css" rel="stylesheet" />
+</head>
+
+<body>
+<div layout:fragment="content">
+    <div th:object="${task}" >
+        <h1>Edit Task</h1>
+        <form method="post" th:action="@{/projectinfos/{project_id}/taskinfos/{id}(project_id=*{projectInfoId},id=*{id})}" >
+            <input name="_method" type="hidden" value="PUT">
+            <dl>
+                <dt><label for="name">Name</label></dt>
+                <dd>
+                    <input type="text" id="name" name="name"
+                           class="form-input"
+                       th:field="*{name}"
+                           autofocus/>
+                    <span th:if="${#fields.hasErrors('bane')}"
+                          th:errors="*{name}">
+                        Name error
+                    </span>
+                </dd>
+                <dt><label for="description">Description</label></dt>
+                <dd>
+                    <input type="text" id="description" name="description"
+                           class="form-input"
+                           th:field="*{description}" />
+                    <span th:if="${#fields.hasErrors('description')}"
+                          th:errors="*{description}">
+                        Description error
+                    </span>
+                </dd>
+                <dt><label for="deadline">DeadLine</label></dt>
+                <dd>
+                    <input type="datetime-local" id="deadline" name="deadline"
+                           class="form-input"
+                       th:field="*{deadline}" />
+                    <span th:if="${#fields.hasErrors('deadline')}"
+                          th:errors="*{deadline}">
+                        Deadline error
+                    </span>
+                </dd>
+            </dl>
+            <a class="btn btn-default" role="button"　href="#"
+               th:href="@{/projectinfos/{project_id}(project_id=*{projectInfoId})}">
+                Cancel
+            </a>
+            <input class="btn btn-default" type="submit" value="Update" />
+        </form>
+    </div>
+</div>
+</body>
+
+</html>

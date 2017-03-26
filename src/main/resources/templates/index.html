@@ -1,0 +1,18 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="common/layout">
+
+<head>
+    <title>hello world</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta charset="UTF-8" />
+</head>
+
+<body>
+    <div layout:fragment="content" class="row">
+        <p th:text="'Welcome to ' + ${#authentication.principal.username} + ' World!'" />
+    </div>
+</body>
+
+</html>

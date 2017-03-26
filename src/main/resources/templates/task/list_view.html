@@ -1,0 +1,124 @@
+<!DOCTYPE html><!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="common/layout">
+
+<head>
+    <title>hello world</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta charset="UTF-8" />
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" rel="stylesheet"/>
+    <link href="../../static/css/custom.css" rel="stylesheet" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" th:src="@{/webjars/jquery/3.1.1/jquery.min.js}"></script>
+
+</head>
+
+<body>
+
+<div layout:fragment="content">
+
+    <a class="btn btn-default" href="#" th:href="@{/projectinfos}" >
+        Back
+    </a>
+    <form  class="form-inline"
+            method="post" th:action="@{/project/{id}/task(id=${newTaskForm.projectId})}" th:object="${newTaskForm}" >
+        <input type="text" id="name" name="name"
+               class="form-control"
+               th:field="*{name}"
+               placeholder="Create Task Name"
+               autofocus
+        />
+        <input class="btn btn-default" type="submit" value="Create" />
+    </form>
+<table class="table table-condensed">
+    <thead>
+    <tr>
+        <th class="col-xs-1 col-ms-1 col-md-1 col-lg-1">Finished</th>
+        <th class="col-xs-4 col-ms-4 col-md-4 col-lg-4">タスク名</th>
+        <th class="col-xs-4 col-ms-4 col-md-4 col-lg-4">注釈</th>
+        <th class="col-xs-4 col-ms-4 col-md-4 col-lg-4"></th>
+    </tr>
+    </thead>
+    <tbody th:remove="all-but-first">
+    <tr th:each="taskForm : ${taskFormList}" th:object="${taskForm}">
+        <td>
+            <input type="checkbox" th:attr="data-id=*{id},data-project-id=*{projectId}" th:value="*{isFinished}" />
+        </td>
+        <td th:text="*{name}">タスク1</td>
+        <td th:text="*{description}">注釈1</td>
+        <td>
+            <ul>
+                <li>
+                    <a class="btn btn-default" role="button"　href="#"
+                       th:href="@{/project/{project_id}/task/{id}/edit(project_id=*{projectId},id=*{id})}">
+                        Edit
+                    </a>
+                </li>
+                <li>
+            <form method="post" th:action="@{/project/{project_id}/task/{id}(project_id=*{projectId},id=*{id})}" >
+                <input name="_method" type="hidden" value="DELETE">
+                <input class="btn btn-default" type="submit" value="Delete" />
+            </form>
+                </li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>タスク2</td>
+        <td>注釈2</td>
+        <td>
+            <form>
+                <input type="submit" value="Edit" />
+            </form>
+        </td>
+        <td>
+            <form>
+                <input type="submit" value="Delete" />
+            </form>
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>タスク3</td>
+        <td>注釈3</td>
+        <td>
+            <form>
+                <input type="submit" value="Edit" />
+            </form>
+        </td>
+        <td>
+            <form>
+                <input type="submit" value="Delete" />
+            </form>
+        </td>
+    </tr>
+</table>
+
+    <script>
+        $(document).ready(function(){
+            var token = $("meta[name='_csrf']").attr("content");
+            var header = $("meta[name='_csrf_header']").attr("content");
+            $(document).ajaxSend(function(e, xhr, options) {
+                xhr.setRequestHeader(header, token);
+            });
+
+
+            $("input[type=checkbox]").change(function(){
+                var isClosed = $(this).prop('checked');
+                $.post('/project/' + $(this).data('project-id') + '/task/' + $(this).data('id'),
+                    {
+                        isClosed: isClosed
+                    }
+                );
+            });
+        });
+    </script>
+</div>
+</body>
+
+</html>
