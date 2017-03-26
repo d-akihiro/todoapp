@@ -21,7 +21,7 @@
 
 <div layout:fragment="content">
 
-    <a class="btn btn-default" href="#" th:href="@{/projectinfos}" >
+    <a class="btn btn-default" href="#" th:href="@{/project}" >
         Back
     </a>
     <form  class="form-inline"
@@ -44,7 +44,7 @@
     </tr>
     </thead>
     <tbody th:remove="all-but-first">
-    <tr th:each="taskForm : ${taskFormList}" th:object="${taskForm}">
+    <tr th:each="taskForm : ${taskFormList}" th:object="${taskForm}" th:classappend="${taskForm.isExpired}? 'danger'">
         <td>
             <input type="checkbox" th:attr="data-id=*{id},data-project-id=*{projectId}" th:value="*{isFinished}" />
         </td>

@@ -29,7 +29,7 @@
     <tbody th:remove="all-but-first">
     <tr th:each="projectForm : ${projectFormList}" th:object="${projectForm}">
         <td>
-            <span class="badge" th:text="*{unfinishedTaskCount}">5</span>
+            <span th:if="*{taskFormList.size()} > 0" class="badge" th:text="*{unfinishedTaskCount}">5</span>
             <a th:text="*{name}" href="#" th:href="@{/project/{id}(id=*{id})}">プロジェクト1</a>
         </td>
         <td th:text="*{description}">注釈1</td>

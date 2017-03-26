@@ -21,6 +21,7 @@
                 <input type="text" id="username" name="username"
                        class="form-input"
                        th:field="*{username}"
+                       placeholder="User Name"
                        autofocus/>
                 <span th:if="${#fields.hasErrors('username')}"
                       th:errors="*{username}">
@@ -30,6 +31,7 @@
             <dd>
                 <input type="password" id="password" name="password"
                        class="form-input"
+                       placeholder="User Password"
                        th:field="*{password}" />
                 <span th:if="${#fields.hasErrors('password')}"
                       th:errors="*{password}">

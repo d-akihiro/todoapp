@@ -12,9 +12,9 @@
 
 <body>
 <div layout:fragment="content">
-    <div th:object="${task}" >
+    <div th:object="${taskForm}" >
         <h1>Edit Task</h1>
-        <form method="post" th:action="@{/projectinfos/{project_id}/taskinfos/{id}(project_id=*{projectInfoId},id=*{id})}" >
+        <form method="post" th:action="@{/project/{project_id}/task/{id}(project_id=*{projectId},id=*{id})}" >
             <input name="_method" type="hidden" value="PUT">
             <dl>
                 <dt><label for="name">Name</label></dt>
@@ -22,8 +22,9 @@
                     <input type="text" id="name" name="name"
                            class="form-input"
                        th:field="*{name}"
+                           placeholder="Task Name"
                            autofocus/>
-                    <span th:if="${#fields.hasErrors('bane')}"
+                    <span th:if="${#fields.hasErrors('name')}"
                           th:errors="*{name}">
                         Name error
                     </span>
@@ -32,7 +33,8 @@
                 <dd>
                     <input type="text" id="description" name="description"
                            class="form-input"
-                           th:field="*{description}" />
+                           th:field="*{description}"
+                           placeholder="Task Description"/>
                     <span th:if="${#fields.hasErrors('description')}"
                           th:errors="*{description}">
                         Description error
@@ -50,7 +52,7 @@
                 </dd>
             </dl>
             <a class="btn btn-default" role="button"　href="#"
-               th:href="@{/projectinfos/{project_id}(project_id=*{projectInfoId})}">
+               th:href="@{/project/{project_id}(project_id=*{projectId})}">
                 Cancel
             </a>
             <input class="btn btn-default" type="submit" value="Update" />
