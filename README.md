@@ -44,8 +44,3 @@
 ## 画面表示
 - `localhost:8080`で画面表示
 - 初期ユーザはユーザ名admin, パスワードadmin
-
-
-# TODO
-- finishedはボタンにしちゃいましょう
-
