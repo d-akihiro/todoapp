@@ -12,7 +12,7 @@
 - `todolist-db`という名前でDBを作成
 - DBの接続ポートは5432(デフォルト)
 - 作成したDBを使用するユーザを作成(ユーザ名:postgres, パスワード:postgres)
-- postgresqlのスーパーユーザで`create extension crypt`を実行
+- postgresqlのスーパーユーザで`create extension pgcrypto`を実行
 (SQLでパスワードのハッシュ化するために必要)
 
 # ビルド方法
