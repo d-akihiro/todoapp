@@ -16,6 +16,9 @@
 (SQLでパスワードのハッシュ化するために必要)
 
 # ビルド方法
+dbマイグレーションにflywayを使用しているため、ビルド前にpostgresサーバが起動した状態にする必要がある。
+(flywayは実行時だけでなくビルド時にもdbへアクセスする)
+コマンドラインからだと'pg_ctrl start -l postgres.log'でpostgresサーバを起動できる。
 
 ## windows
 1. build.gradleのあるディレクトリへ移動
